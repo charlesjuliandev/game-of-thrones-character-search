@@ -76,19 +76,22 @@ The component uses Tailwind CSS for styling. Basic styles are applied to the inp
 Here is a sample usage of the `AutoComplete` component:
 
 ```tsx
-import React from 'react';
-import AutoComplete from './character-search/page';
+import React from "react";
+import AutoComplete from "./character-search/page";
 
 const App = () => {
   return (
     <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">Game of Thrones Characters Search</h1>
+      <h1 className="text-2xl font-bold mb-4">
+        Game of Thrones Characters Search
+      </h1>
       <AutoComplete />
     </div>
   );
 };
 
 export default App;
+```
 
 ## Future Improvements
 
@@ -104,4 +107,7 @@ This project is licensed under the MIT License. See the LICENSE file for details
 ## Acknowledgements
 
 - An API of Ice and Fire for providing the data. ([API of Ice and Fire](https://anapioficeandfire.com/))
+
+```
+
 ```
