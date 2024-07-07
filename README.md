@@ -107,7 +107,3 @@ This project is licensed under the MIT License. See the LICENSE file for details
 ## Acknowledgements
 
 - An API of Ice and Fire for providing the data. ([API of Ice and Fire](https://anapioficeandfire.com/))
-
-```
-
-```
