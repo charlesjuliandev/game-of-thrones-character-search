@@ -39,6 +39,8 @@ This project provides an auto-complete search component to search for characters
 
 4. Open your browser and navigate to `http://localhost:3000`.
 
+5. Live demo: [Game of Thrones Characters Search](https://portfolio2024-lilac-two.vercel.app/got-character-search)
+
 ## Component Overview
 
 ### `page.tsx` (under `src/app/character-search/`)
