@@ -2,14 +2,28 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
-import { useDebounce } from "@/app/utils/usedebounce";
+import { useDebounce } from "../utils/useDebounce";
 
-const AutoComplete = () => {
-  const [query, setQuery] = useState("");
-  const [results, setResults] = useState([]);
-  const [selectedCharacter, setSelectedCharacter] = useState(null);
+interface Character {
+  url: string;
+  name: string;
+  gender: string;
+  born: string;
+  mother: string;
+  father: string;
+  spouse: string;
+  aliases: string[];
+  books: string[];
+}
+
+const AutoComplete: React.FC = () => {
+  const [query, setQuery] = useState<string>("");
+  const [results, setResults] = useState<Character[]>([]);
+  const [selectedCharacter, setSelectedCharacter] = useState<Character | null>(
+    null
+  );
   const debouncedQuery = useDebounce(query, 500);
-  const cache = useRef({}); // Use useRef to store cache
+  const cache = useRef<{ [key: string]: Character[] }>({}); // Use useRef to store cache
 
   useEffect(() => {
     if (debouncedQuery) {
@@ -26,7 +40,7 @@ const AutoComplete = () => {
     }
 
     try {
-      const allResults = [];
+      const allResults: Character[] = [];
       let page = 1;
       let moreResults = true;
 
@@ -41,7 +55,7 @@ const AutoComplete = () => {
           }
         );
 
-        const data = response.data;
+        const data: Character[] = response.data;
         console.log(`Fetched page ${page}`, data);
 
         if (data.length > 0) {
@@ -69,7 +83,7 @@ const AutoComplete = () => {
     }
   };
 
-  const fetchDetails = async (url) => {
+  const fetchDetails = async (url: string): Promise<string> => {
     try {
       const response = await axios.get(url);
       return response.data.name || "Unknown";
@@ -79,7 +93,7 @@ const AutoComplete = () => {
     }
   };
 
-  const fetchBooks = async (bookUrls) => {
+  const fetchBooks = async (bookUrls: string[]): Promise<string[]> => {
     try {
       const bookNames = await Promise.all(
         bookUrls.map(async (url) => {
@@ -94,7 +108,7 @@ const AutoComplete = () => {
     }
   };
 
-  const handleSelect = async (character) => {
+  const handleSelect = async (character: Character) => {
     const selected = { ...character };
 
     if (selected.father && selected.father.startsWith("http")) {
@@ -108,6 +122,7 @@ const AutoComplete = () => {
     } else {
       selected.mother = "Unknown";
     }
+
     if (selected.spouse && selected.spouse.startsWith("http")) {
       selected.spouse = await fetchDetails(selected.spouse);
     } else {
@@ -126,7 +141,7 @@ const AutoComplete = () => {
   };
 
   return (
-    <div className="p-6 max-w-md mx-auto">
+    <div className="p-6 max-w-md mx-auto mt-20 h-full min-h-screen">
       <input
         type="text"
         value={query}
